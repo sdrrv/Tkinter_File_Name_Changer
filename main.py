@@ -64,7 +64,7 @@ def run():
 
 #-----------------------Creating--the--GUI---------------------------------
 app=Tk()
-app.title("File Name Changer")
+app.title("File Name Changer (Elvas)")
 app.geometry("700x200")
 #----------------------------------Labels--------------------------------------
 
