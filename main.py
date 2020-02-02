@@ -5,7 +5,6 @@ from tkinter import filedialog
 prefix=""
 direct=r""
 nome=""
-ordem=97
 #------------------------------------Functions------------------------------------
 def select_prefix():
     global prefix
@@ -42,7 +41,7 @@ def select_dir():
         label_debug.config(text="Error", fg="Red")
 
 def run():
-    global ordem
+    ordem=97
     if not prefix:
         label_debug.config(text="Run_Error \n No Prefix", fg="Red")
     elif not direct:
@@ -55,12 +54,16 @@ def run():
                 if prefix in file:
                     os.rename(direct+chr(92)+file,direct+chr(92)+nome+chr(ordem))
                     ordem+=1
+            label_debug.config(text="Finished!", fg="Green")
+            
         except:
             label_debug.config(text="Run_Error", fg="Red")
     else:
         label_debug.config(text="Run_Error", fg="Red")
 
-
+def new():
+    new_app=Tk()
+    new_app.mainloop()
 
 #-----------------------Creating--the--GUI---------------------------------
 app=Tk()
@@ -102,6 +105,10 @@ button_select_dir.grid(row=1,column=2)
 
 button_run=Button(app,text="Run", font=("Calibri",10), activebackground="green", relief="groove", fg="Red", command=run)
 button_run.grid(row=2,column=1)
+
+button_test=Button(app,text="Click", command=new)
+button_test.grid(row=5,column=5)
+
 #---------------------------------Run----------------------------------------
 app.mainloop()
 #--------------------------------------------------------------------------
