@@ -3,7 +3,6 @@ import os
 from tkinter import filedialog
 import pickle
 #--------------------------------------------------------------------------
-
 prefix=""
 direct=r""
 nome=""
@@ -57,6 +56,7 @@ def select_dir():
 
 def run():
     ordem=97
+    replace=[]
     if not prefix:
         label_debug.config(text="Run_Error \n No Prefix", fg="Red")
         new()
@@ -68,12 +68,17 @@ def run():
         try:
             for file in os.listdir(direct):
                 if prefix in file:
-                    os.rename(direct+chr(92)+file,direct+chr(92)+nome+chr(ordem))
-                    ordem+=1
+                    replace.append(file)
+            os.rename(direct+chr(92)+replace[0],direct+chr(92)+nome+".jpeg")
+            replace.pop(0)
+            for file in replace:
+                os.rename(direct+chr(92)+file,direct+chr(92)+nome+chr(ordem)+".jpeg")
+                ordem+=1
             label_debug.config(text="Finished!", fg="Green")
             
-        except:
+        except Exception as e:
             label_debug.config(text="Run_Error", fg="Red")
+            print(e)
     else:
         label_debug.config(text="Run_Error", fg="Red")
 
@@ -106,6 +111,9 @@ def load():
     except:
         pass
 
+def key(event):
+    if len(event.char) == 1:
+        run()
 #-----------------------Creating--the--GUI---------------------------------
 load()
 app=Tk()
@@ -144,5 +152,6 @@ button_test=Button(app,text="Settings", command=new)
 button_test.grid(row=4,column=0)
 
 #---------------------------------Run----------------------------------------
+app.bind_all('<Key>', key)
 app.mainloop()
 #--------------------------------------------------------------------------
