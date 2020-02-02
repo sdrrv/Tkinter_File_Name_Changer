@@ -113,6 +113,7 @@ def load():
 
 def key(event):
     if len(event.char) == 1:
+        select_prefix()
         run()
 #-----------------------Creating--the--GUI---------------------------------
 load()
